@@ -1,9 +1,6 @@
-import chalk from 'chalk'
+import pc from 'picocolors'
 import { GITHUB_API_ENDPOINT } from './constants.js'
 
-/**
- * @param {string} value
- */
 export async function fetchGithubUser(value) {
   try {
     const response = await fetch(`${GITHUB_API_ENDPOINT}/${value}`)
@@ -11,7 +8,7 @@ export async function fetchGithubUser(value) {
     const ratelimitData = response.headers.get('x-ratelimit-remaining')
     return { status: response.ok, userData, ratelimitData }
   } catch (error) {
-    console.log(chalk.red(error.message))
+    console.log(pc.red(error.message))
     return
   }
 }

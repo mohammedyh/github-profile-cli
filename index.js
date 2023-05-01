@@ -1,5 +1,5 @@
 import { input, select } from '@inquirer/prompts'
-import chalk from 'chalk'
+import pc from 'picocolors'
 import { fetchGithubUser } from './utils/fetchGithubUser.js'
 
 let data, requestsLeft
@@ -21,7 +21,7 @@ const actions = await select({
     {
       name: 'Profile information',
       value: 'profile-info',
-      description: 'An overview of your profile information',
+      description: 'An overview of your profile',
     },
     {
       name: 'List of repositories',
@@ -32,18 +32,43 @@ const actions = await select({
 })
 
 if (actions === 'profile-info') {
-  console.log(`Username: ${data.login}`)
-  console.log(`Name: ${data.name ?? 'Not set'}`)
-  console.log(`Bio: ${data.bio ?? 'Not set'}`)
-  console.log(`Company: ${data.company ?? 'Not set'}`)
-  console.log(`Email: ${data.email ?? 'Not set'}`)
-  console.log(`Location: ${data.location ?? 'Not set'}`)
-  console.log(`Blog: ${data.blog}`)
-  console.log(`Profile URL: ${data.html_url}`)
-  console.log(chalk.magentaBright.bold(`Requests remaining: ${requestsLeft}`))
-} else if (actions === 'list-repos') {
-  // fetch (some) repos from `data.repos_url`
-  // maybe only fetch the pinned repos, if possible
-  // display to screen
-  // (optional): make each repo a select item, users can choose a repo and get repo stats
+  console.log(`${pc.cyan('Username:')} ${data.login}`)
+  console.log(`${pc.cyan('Name:')} ${data.name ?? 'Not set'}`)
+  console.log(`${pc.cyan('Bio:')} ${data.bio?.trim() ?? 'Not set'}`)
+  console.log(`${pc.cyan('Company:')} ${data.company ?? 'Not set'}`)
+  console.log(`${pc.cyan('Email:')} ${data.email ?? 'Not set'}`)
+  console.log(`${pc.cyan('Location:')} ${data.location ?? 'Not set'}`)
+  console.log(`${pc.cyan('Blog:')} ${data.blog ? pc.underline(data.blog) : 'Not set'}`)
+  console.log(`${pc.cyan('Profile URL:')} ${pc.underline(data.html_url)}`)
+} else {
+  const response = await fetch(data.repos_url)
+  const reposData = await response.json()
+
+  const formattedChoices = reposData.map((repo, i) => ({
+    name: `${i}: ${repo.name}`,
+    value: repo.name,
+    description: repo.description,
+  }))
+  const repoAction = await select({
+    message: 'Choose a repo for more details',
+    choices: formattedChoices,
+  })
+  const selectedRepo = reposData.find((repo) => repo.name === repoAction)
+
+  console.log(`${pc.cyan('Name:')} ${selectedRepo.name}`)
+  console.log(`${pc.cyan('Description:')} ${selectedRepo.description?.trim() ?? 'Not set'}`)
+  console.log(`${pc.cyan('Language:')} ${selectedRepo.language}`)
+  console.log(`${pc.cyan('Stars:')} ${selectedRepo.stargazers_count}`)
+  console.log(`${pc.cyan('Forks:')} ${selectedRepo.forks_count}`)
+  console.log(`${pc.cyan('Watchers:')} ${selectedRepo.watchers_count}`)
+  console.log(`${pc.cyan('Open Issues:')} ${selectedRepo.open_issues}`)
+  console.log(`${pc.cyan('Is a Fork:')} ${selectedRepo.fork}`)
+  console.log(`${pc.cyan('Repo URL:')} ${pc.underline(selectedRepo.html_url)}`)
+  console.log(
+    `${pc.cyan('Website URL:')} ${
+      selectedRepo.homepage ? pc.underline(selectedRepo.homepage) : 'Not set'
+    }`
+  )
+  console.log(`${pc.cyan('CLI Clone Command:')} gh repo clone ${selectedRepo.full_name}`)
 }
+console.log(pc.magenta(pc.bold(`API Requests Remaining: ${requestsLeft}`)))
