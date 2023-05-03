@@ -4,13 +4,13 @@ A simple CLI for displaying your GitHub profile information and repository list.
 
 ## Screenshots
 
-![Profile information screenshot](https://github.com/mohammedyh/node-gitinfo/blob/master/img/screenshot-1.png?raw=true)
+![Profile information screenshot](https://github.com/mohammedyh/node-gitinfo/blob/master/screenshots/screenshot-1.png?raw=true)
 
-![Repositories list screenshot](https://github.com/mohammedyh/node-gitinfo/blob/master/img/screenshot-2.png?raw=true)
+![Repositories list screenshot](https://github.com/mohammedyh/node-gitinfo/blob/master/screenshots/screenshot-2.png?raw=true)
 
-![Repository information screenshot](https://github.com/mohammedyh/node-gitinfo/blob/master/img/screenshot-3.png?raw=true)
+![Repository information screenshot](https://github.com/mohammedyh/node-gitinfo/blob/master/screenshots/screenshot-3.png?raw=true)
 
-![Invalid username screenshot](https://github.com/mohammedyh/node-gitinfo/blob/master/img/screenshot-4.png?raw=true)
+![Invalid username screenshot](https://github.com/mohammedyh/node-gitinfo/blob/master/screenshots/screenshot-4.png?raw=true)
 
 ## Run Locally
 
