@@ -1,6 +1,6 @@
-# Node Git-Info
+# GitHub Profile CLI
 
-A simple CLI for displaying your GitHub profile information and repository list. Built with Node, Inquirer and Picocolors.
+A simple CLI for displaying your GitHub profile information and repository list. Built with Node.js, Inquirer.js and Picocolors.
 
 ## Screenshots
 
