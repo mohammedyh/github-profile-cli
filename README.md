@@ -40,6 +40,6 @@ pnpm start
 
 ## Tech Stack
 
-**Server:** Node, Inquirer, Picocolors
+**Server:** Node.js, Inquirer.js, Picocolors
 
 **Tooling:** ESLint, Prettier, lint-staged, Husky
