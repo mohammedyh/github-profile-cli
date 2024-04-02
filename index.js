@@ -39,6 +39,8 @@ if (actions === 'profile-info') {
   console.log(`${pc.cyan('Email:')} ${data.email ?? 'Not set'}`)
   console.log(`${pc.cyan('Location:')} ${data.location ?? 'Not set'}`)
   console.log(`${pc.cyan('Blog:')} ${data.blog ? pc.underline(data.blog) : 'Not set'}`)
+  console.log(`${pc.cyan('Followers:')} ${Intl.NumberFormat().format(data.followers)}`)
+  console.log(`${pc.cyan('Following:')} ${Intl.NumberFormat().format(data.following)}`)
   console.log(`${pc.cyan('Profile URL:')} ${pc.underline(data.html_url)}`)
 } else {
   const response = await fetch(data.repos_url)
