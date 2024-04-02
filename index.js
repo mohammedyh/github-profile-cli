@@ -6,12 +6,12 @@ let data, requestsLeft
 
 await input({
   message: 'Enter your GitHub username:',
-  validate: async (value) => {
-    const { status, userData, ratelimitData } = await fetchGithubUser(value)
+  validate: async (username) => {
+    const { status, userData, ratelimitData } = await fetchGithubUser(username)
     data = userData
     requestsLeft = ratelimitData
 
-    return value.trim() !== '' && status
+    return username.trim() !== '' && status
   },
 })
 
@@ -44,8 +44,8 @@ if (actions === 'profile-info') {
   const response = await fetch(data.repos_url)
   const reposData = await response.json()
 
-  const formattedChoices = reposData.map((repo, i) => ({
-    name: `${i}: ${repo.name}`,
+  const formattedChoices = reposData.map((repo, index) => ({
+    name: `${index}: ${repo.name}`,
     value: repo.name,
     description: repo.description,
   }))
